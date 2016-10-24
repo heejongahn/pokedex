@@ -73,8 +73,10 @@ def parse_pokemon_en(doc, name):
     description = doc.cssselect('div.version-descriptions')[0].\
             getchildren()[0].text.strip()
 
-    return [poke_id, image_url, gender, poke_type, height, weight,
-            LocaleType.EN, name, description, category]
+    return [
+            (poke_id, image_url, gender, poke_type, height, weight),
+            (name, description, category)
+            ]
 
 
 # ------------------------------------------
