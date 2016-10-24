@@ -44,9 +44,10 @@ class PokemonLocale(db.Model):
     category = db.Column(db.String(20))
     basics_id = db.Column(db.Integer, db.ForeignKey('pokemon.poke_id'))
 
-    def __init__(self, p_id, l, n, d, c):
+    def __init__(self, p_id, l, n, d, c, b_id):
         self.poke_id = p_id
         self.locale = l
         self.name = n
         self.description = d
         self.category = c
+        self.basics_id = b_id
