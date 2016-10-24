@@ -57,7 +57,7 @@ def parse_pokemon_en(doc, name):
     poke_id = doc.cssselect('span#pokemonID')[0].text[1:]
 
     image = doc.cssselect('div.profile-images')[0].getchildren()[0]
-    image_url = image.get('src')[2:]
+    image_url = 'https://' + image.get('src')[2:]
 
     # This contains height, weight, gender, category info
     ability_info = doc.cssselect('div.pokemon-ability-info')[0]
