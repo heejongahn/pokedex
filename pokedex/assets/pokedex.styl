@@ -8,17 +8,30 @@ nav
   h1
     text-align: center
 
-img
-  display:inline-block
-  width: 25%
+div.pokemon-profile
+  width: 100%
+
+  img
+    width: 25%
+    display:inline-block
+
+  div.pokemon-info
+    width: 70%
+    display: inline-block
 
 table
-  display: inline-block
-  width: 70%
+  tbody
+    width: 100%
+
+  tr
+    width: 100%
 
 @media(max-width: 40.0 rem)
-  img
-    width: 100%
+  div.pokemon-profile
+    img
+      width: 100%
+      display: block
 
-  table
-    width: 100%
+    div.pokemon-info
+      width: 100%
+      display: block
