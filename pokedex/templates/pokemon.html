@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Cool Pokedex{% endblock %}
+{% block content %}
+<img alt="{{p_locale.name}}" src="{{p.image_url}}" />
+<table>
+  <tr>
+    <th>Pokemon Id</th>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>Type</th>
+    <th>Category</th>
+    <th>Height (m)</th>
+    <th>Weight (kg)</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>{{p.poke_id}}</td>
+    <td>{{p_locale.name}}</td>
+    <td>{{p.gender.value}}</td>
+    <td>{{p.poke_type}}</td>
+    <td>{{p_locale.category}}</td>
+    <td>{{p.height}}</td>
+    <td>{{p.weight}}</td>
+    <td>{{p_locale.description}}</td>
+  </tr>
+</table>
+{% endblock %}
