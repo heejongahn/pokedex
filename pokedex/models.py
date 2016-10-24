@@ -17,7 +17,6 @@ class GenderType(enum.Enum):
 
 
 # Actual Models
-
 class Pokemon(db.Model):
     poke_id = db.Column(db.Integer, primary_key=True)
     image_url = db.Column(db.String(120))
