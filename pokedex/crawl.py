@@ -31,7 +31,7 @@ def construct_name_map():
 
     for row in rows:
         tds = row.findall('td')
-        poke_no = tds[0].text.strip()
+        poke_no = int(tds[0].text.strip())
 
         # KR name is enclosed in an additional <a> tag
         kr_name = tds[1].getchildren()[0].text.strip()
