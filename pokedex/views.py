@@ -5,4 +5,4 @@ from pokedex.models import LocaleType, GenderType, Pokemon, PokemonLocale
 
 @app.route('/')
 def index():
-    return "Warmest welcome from pokedex."
+    return render_template('index.html')
