@@ -5,3 +5,6 @@ node_modules/
 **/npm_debug.log
 
 pokedex.db
+
+pokedex/static/bundle.js
+pokedex/static/style.css
