@@ -1,12 +1,21 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
 @import url('../../node_modules/milligram/dist/milligram.css');
 
+text-color = #606c76
+
 html
   font-family: "Spoqa Han Sans", "Spoqa Han Sans KR", sans-serif;
 
 nav
   h1
+    font-weight: 500
     text-align: center
+
+  form#search-form
+    padding: 1em 3em
+
+  a
+    color: text-color
 
 div.pokemon-profile
   width: 100%
@@ -27,6 +36,10 @@ table
     width: 100%
 
 @media(max-width: 40.0 rem)
+  nav
+    form#search-form
+      padding: 0em 1.5em
+
   div.pokemon-profile
     img
       width: 100%
