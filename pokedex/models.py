@@ -23,6 +23,8 @@ class Pokemon(db.Model):
     image_url = db.Column(db.String(120))
     gender = db.Column(db.Enum(GenderType))
     poke_type = db.Column(db.String(20))
+    height = db.Column(db.Float)
+    weight = db.Column(db.Float)
 
 
 class PokemonLocale(db.Model):
