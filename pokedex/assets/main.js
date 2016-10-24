@@ -12,3 +12,9 @@ const backToTopBtn = document.getElementById('back-to-top')
 backToTopBtn.addEventListener('click', (e) => {
   window.scroll(0, 0);
 });
+
+// Make sure back to top button is used only when vertical scroll is available
+const hasVScroll = document.body.scrollHeight > window.innerHeight;
+if (!hasVScroll) {
+  backToTopBtn.style.display = 'none';
+}
