@@ -1,3 +1,1 @@
 require('./pokedex');
-
-alert('welcome!');
