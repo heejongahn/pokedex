@@ -11,3 +11,5 @@ else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 SQLALCHEMY_RECORD_QUERIES = True
+
+SECRET_KEY = 'spoqa is very awesome'
