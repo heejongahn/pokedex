@@ -27,6 +27,8 @@
 - 이미지 URL
 - 성별
 - 타입
+- 키
+- 몸무게
 
 ### PokemonLocale
 
