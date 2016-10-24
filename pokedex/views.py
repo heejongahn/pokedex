@@ -24,7 +24,7 @@ def init_view(app):
             name = name_or_id
 
         if name not in name_array_map[LocaleType.EN]:
-            return "No such pokemon :("
+            return render_template('no_such_pokemon.html')
 
         info = crawl_pokemon(LocaleType.EN, name)
         (poke_id, image_url, gender, poke_type, height, weight) = info[0]
