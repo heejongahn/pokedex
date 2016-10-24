@@ -68,7 +68,9 @@ def parse_pokemon_en(doc, name):
     gender = figure_gender(gender_span)
     category = category_span.text
 
-    poke_type = doc.cssselect('div.dtm-type a')[0].text
+    poke_type_list = [a.text for a in doc.cssselect('div.dtm-type a')]
+    # Make sure the list is unique
+    poke_type = " ".join(list(set(poke_type_list)))
 
     description = doc.cssselect('div.version-descriptions')[0].\
             getchildren()[0].text.strip()
