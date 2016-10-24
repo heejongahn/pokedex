@@ -4,22 +4,30 @@
 <div class="pokemon-profile">
   <img alt="{{p_locale.name}}" src="{{p.image_url}}" />
   <div class="pokemon-info">
-    <h2 class="pokemon-name">{{p_locale.name}} (#{{p.poke_id}})</h2>
+    <div>
+      <h2 class="pokemon-name">{{p_locale.name}} (#{{p.poke_id}})</h2>
+      <div class="pokemon-types">
+        {% for type in p.poke_type.split() %}
+          <button class="pokemon-type button-black button-outline button-small">
+            {{type}}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+    <p class="pokemon-category">{{p_locale.category}} Pokemon</p>
     <p class="pokemon-description">{{p_locale.description}}</p>
   </div>
 </div>
+
 <table>
+  <caption>Physical Information</caption>
   <tr>
     <th>Gender</th>
-    <th>Type</th>
-    <th>Category</th>
     <th>Height (m)</th>
     <th>Weight (kg)</th>
   </tr>
   <tr>
     <td>{{p.gender.value}}</td>
-    <td>{{p.poke_type}}</td>
-    <td>{{p_locale.category}}</td>
     <td>{{p.height}}</td>
     <td>{{p.weight}}</td>
   </tr>

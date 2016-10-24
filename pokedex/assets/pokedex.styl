@@ -3,11 +3,26 @@
 
 main-color = #606c76
 
+.button-black
+  background-color: black
+  border-color: black
+
+.button-black.button-outline
+  color: black
+
+/* Applying size variation */
+.button-small
+  font-size: .8rem
+  height: 2.8rem
+  line-height: 2.8rem
+  padding: 0 1.5rem
+
 html
   font-family: "Spoqa Han Sans", "Spoqa Han Sans KR", sans-serif;
 
 nav
   h1
+    display: inline
     font-weight: 500
     text-align: center
 
@@ -28,7 +43,22 @@ div.pokemon-profile
     width: 70%
     display: inline-block
 
+    h2.pokemon-name
+      display: inline
+
+    div.pokemon-types
+      display: inline
+
+      button.pokemon-type
+        display: inline
+
 table
+  *
+    text-align: center
+
+  caption
+    font-weight: bold
+
   tbody
     width: 100%
 
@@ -58,6 +88,9 @@ button#back-to-top
     div.pokemon-info
       width: 100%
       display: block
+
+      div.pokemon-types
+        display: block
 
   button#back-to-top
     display: block
