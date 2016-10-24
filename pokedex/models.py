@@ -10,7 +10,7 @@ class LocaleType(enum.Enum):
 
 
 class GenderType(enum.Enum):
-    ASEXUAL = "X"
+    UNKNOWN = "?"
     ONLY_MALE = "♂"
     ONLY_FEMALE = "♀"
     BOTH_GENDER = "♀ ♂"
