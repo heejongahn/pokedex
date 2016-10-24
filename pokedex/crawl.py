@@ -1,7 +1,7 @@
 from requests import get
 from lxml import html
 
-from pokedex.models import LocaleType
+from pokedex.models import LocaleType, GenderType
 
 BASE_URLS = {
         LocaleType.KR: 'http://ko.pokemon.wikia.com/wiki/{}',
@@ -40,6 +40,60 @@ def crawl_pokemon(locale, name):
     doc = fetch_and_parse(BASE_URLS[locale].format(name))
 
     if locale == LocaleType.KR:
-        crawl_pokemon_kr(doc)
+        return parse_pokemon_kr(doc, name)
     else:
-        crawl_pokemon_en(doc)
+        return parse_pokemon_en(doc, name)
+
+def parse_pokemon_en(doc, name):
+    poke_id = doc.cssselect('span#pokemonID')[0].text[1:]
+
+    image = doc.cssselect('div.profile-images')[0].getchildren()[0]
+    image_url = image.get('src')[2:]
+
+    # This contains height, weight, gender, category info
+    ability_info = doc.cssselect('div.pokemon-ability-info')[0]
+    [ height_span, weight_span, gender_span, category_span] = \
+            ability_info.cssselect('li span.attribute-value')[:4]
+
+    height, weight = resolve_american_units(height_span, weight_span)
+    gender = figure_gender(gender_span)
+    category = category_span.text
+
+    poke_type = doc.cssselect('div.dtm-type a')[0].text
+
+    description = doc.cssselect('div.version-descriptions')[0].\
+            getchildren()[0].text.strip()
+
+    return [poke_id, image_url, gender, poke_type, height, weight,
+            LocaleType.EN, name, description, category]
+
+
+# ------------------------------------------
+# Below are helper functions used in crawler
+# ------------------------------------------
+
+# Deals with the messed up American Unit System
+def resolve_american_units(height_span, weight_span):
+    [height_ft, height_inch] = \
+            [float(h[:-1]) for h in height_span.text.split()]
+
+    height = (height_ft * 12 + height_inch) * 0.0254
+    weight = float(weight_span.text.split()[0]) * 0.453592
+
+    # Ex:
+    # 0.30479999999999996 m -> 0.3 m
+    # 3.9916096000000003 kg -> 4.0 kg
+    return (round(height, 2), round(weight, 2))
+
+# Figure out which gender type a pokemon has
+def figure_gender(gender_span):
+    if gender_span.text.strip() == 'Unknown':
+        gender = GenderType.UNKNOWN
+    elif len(gender_span.getchildren()) == 2:
+        gender = GenderType.BOTH_GENDER
+    elif gender_span.findall('i.icon_female_symbol'):
+        gender = GenderType.FEMALE
+    else:
+        gender = GenderType.MALE
+
+    return gender
