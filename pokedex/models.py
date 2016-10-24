@@ -1,5 +1,5 @@
 import enum
-from server import db
+from pokedex import db
 
 # Enum Definitions
 
@@ -29,5 +29,5 @@ class PokemonLocale(db.Model):
     poke_id = db.Column(db.Integer, primary_key=True)
     locale = db.Column(db.Enum(LocaleType), primary_key=True)
     name = db.Column(db.String(20))
-    description = db.Column(db.Text))
+    description = db.Column(db.Text)
     category = db.Column(db.String(20))

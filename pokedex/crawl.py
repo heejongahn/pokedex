@@ -1,10 +1,10 @@
 from requests import get
 from lxml import html
 
-from .models import LocaleType
+from pokedex.models import LocaleType
 
 BASE_URLS = {
-        LocaleType.KR: 'http://ko.pokemon.wikia.com/wiki/{}'
+        LocaleType.KR: 'http://ko.pokemon.wikia.com/wiki/{}',
         LocaleType.EN: 'http://www.pokemon.com/us/pokedex/{}'
         }
 
