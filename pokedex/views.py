@@ -1,6 +1,6 @@
 import random
 
-from flask import render_template, request, redirect, jsonify
+from flask import render_template, jsonify
 
 from pokedex import app, db
 from pokedex.models import LocaleType, Pokemon, PokemonLocale, Evolution
