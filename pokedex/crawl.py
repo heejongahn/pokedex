@@ -119,10 +119,10 @@ def figure_gender(gender_span):
     return gender
 
 # Get evolution chain of a given pokemon.
-# Returns (possibly nested) list representing the poke_ids of evolution chain.
+# Returns list representing the poke_ids of evolution chain.
 # Ex:
 # ['001', '002', '003'] (Bulbasaur -> Ivysaur -> Venusaur)
-# ['133', ['134', '135', '136', '196', '197', '470', '471', '700']] (Eevee)
+# ['133', '134, 135, 136, 196, 197, 470, 471, 700'] (Eevee)
 # ['83'] (Farfetch'd)
 def get_evolution_chain(evo):
     pokemons = evo.cssselect('ul.evolution-profile > li')
@@ -139,7 +139,7 @@ def get_evolution_chain(evo):
         # Evolves to multiple pokemon
         if len(last) > 1:
             evolved_from = strip_span(first[0])
-            evolves_to = [strip_span(s) for s in last]
+            evolves_to = ",".join([strip_span(s) for s in last])
             chain = [evolved_from, evolves_to]
 
         # Regular two step evolution
