@@ -9,6 +9,13 @@ searchForm.addEventListener('submit', (e) => {
   window.location.href = `/${searchInput.value}`;
 });
 
+const links = document.querySelectorAll('a');
+for (const link of links) {
+  link.addEventListener('click', () => {
+      showSpinner();
+  });
+}
+
 const backToTopBtn = document.getElementById('back-to-top')
 backToTopBtn.addEventListener('click', (e) => {
   window.scroll(0, 0);
