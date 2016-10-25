@@ -39,8 +39,6 @@ def init_view(app):
                     for poke_id in poke_ids]
                 for poke_ids in chain_ids_splitted]
 
-        print(chain_pairs)
-
         p = Pokemon.query.get(poke_id)
         if p is None:
             p = Pokemon(poke_id, image_url, gender, poke_type, height, weight)
