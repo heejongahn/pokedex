@@ -1,3 +1,5 @@
+import random
+
 from flask import render_template, request, redirect, flash, session, jsonify
 
 from pokedex import app, db
@@ -10,7 +12,8 @@ def init_view(app):
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        return render_template('index.html',
+                random_pokemon=random.choice(name_map[LocaleType.EN]))
 
     @app.route('/<name_or_id>')
     def pokename(name_or_id):

@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Cool Pokedex{% endblock %}
 {% block content %}
-<h1>Welcome, Pokemaster!</h1>
+<div class="welcome">
+  <h1>Welcome, Pokemaster!</h1>
+  <p>
+  Here is pokedex, the ultimate(ish) database of all existing pokemons. You can
+  search info with either pokemon ID or pokemon name. If you don't know where to
+  start, why don't you try <a href="/{{random_pokemon}}">{{random_pokemon}}</a>?
+  </p>
+</div>
 {% endblock %}
