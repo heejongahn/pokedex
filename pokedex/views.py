@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, flash, session
+from flask import render_template, request, redirect, flash, session, jsonify
 
 from pokedex import app, db
 from pokedex.models import LocaleType, GenderType, Pokemon, PokemonLocale
@@ -52,3 +52,8 @@ def init_view(app):
 
         return render_template('pokemon.html', p=p, p_locale=p_locale,
                 chain_pairs=chain_pairs)
+
+    @app.route('/name_map')
+    def get_name_map():
+        locale_name_map = name_map[LocaleType.EN]
+        return jsonify(name_map=locale_name_map)
