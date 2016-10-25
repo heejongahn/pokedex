@@ -15,24 +15,18 @@ def init_view(app):
     @app.route('/<name_or_id>')
     def pokename(name_or_id):
         locale_name_map = name_map[LocaleType.EN]
-
-        try:
-            poke_id = int(name_or_id)
-            name = locale_name_map[poke_id-1]
-
-        except:
-            name = name_or_id.lower().capitalize()
-
-        if name not in locale_name_map:
+        (poke_id, name) = parse_name(name_or_id, locale_name_map)
+        if poke_id is None:
             return render_template('no_such_pokemon.html')
 
-        poke_id = locale_name_map.index(name) + 1
         info = crawl_pokemon(LocaleType.EN, name)
-
         (image_url, gender, poke_type, height, weight) = info[0]
         (description, category) = info[1]
         chain_ids = info[2]
 
+        # chain_ids = ['1', '2,3,4']
+        #             -> ['1', ['2', '3', '4']]
+        #             -> [('1', 'name1'), [('2', 'name2'), ...]]
         chain_ids_splitted = [ids.split(',') for ids in chain_ids]
         chain_pairs = [
                 [(poke_id, locale_name_map[int(poke_id)-1])
@@ -40,6 +34,7 @@ def init_view(app):
                 for poke_ids in chain_ids_splitted]
 
         p = Pokemon.query.get(poke_id)
+
         if p is None:
             p = Pokemon(poke_id, image_url, gender, poke_type, height, weight)
             db.session.add(p)
@@ -59,3 +54,17 @@ def init_view(app):
     def get_name_map():
         locale_name_map = name_map[LocaleType.EN]
         return jsonify(name_map=locale_name_map)
+
+def parse_name(name_or_id, locale_name_map):
+    try:
+        poke_id = int(name_or_id)
+        name = locale_name_map[poke_id-1]
+
+    except:
+        name = name_or_id.lower().capitalize()
+
+    if name not in locale_name_map:
+        return (None, None)
+
+    poke_id = locale_name_map.index(name) + 1
+    return (poke_id, name)
