@@ -1,27 +1,32 @@
 require('./pokedex');
 import 'whatwg-fetch';
 
-const searchForm = document.getElementById('search-form');
-const searchInput = document.getElementById('search-input');
-
-
-const addSpinner = (elem, event) => {
-  elem.addEventListener(event, () => {
-    showSpinner();
-  });
+// Show spinner, then redirect when form submitted
+const showSpinner = () => {
+  const spinner = document.getElementsByClassName('spinner')[0]
+  if (spinner) {
+    spinner.style.display = 'block';
+  }
 }
-
+const searchForm = document.getElementById('search-form');
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
   showSpinner();
   window.location.href = `/${searchInput.value}`;
 });
 
-const links = document.querySelectorAll('a');
-for (const link of links) {
-  addSpinner(link, 'click');
+// Make all link clicks show spinner too
+const addShowSpinner = (elem, event) => {
+  elem.addEventListener(event, () => {
+    showSpinner();
+  });
 }
 
+[...document.querySelectorAll('a')].map(link => {
+  addShowSpinner(link, 'click');
+});
+
+// Back to top functionality
 const backToTopBtn = document.getElementById('back-to-top')
 backToTopBtn.addEventListener('click', (e) => {
   window.scroll(0, 0);
@@ -33,13 +38,8 @@ if (!hasVScroll) {
   backToTopBtn.style.display = 'none';
 }
 
-const showSpinner = () => {
-  const spinner = document.getElementsByClassName('spinner')[0]
-  if (spinner) {
-    spinner.style.display = 'block';
-  }
-}
-
+// Search recommendation, using fetch
+const searchInput = document.getElementById('search-input');
 const searchRecommendation = document.getElementById('search-recommendation');
 fetch('/name_map').
   then(result => result.json()).
@@ -53,23 +53,17 @@ fetch('/name_map').
             name.toLowerCase().includes(e.target.value.toLowerCase()))
       ).slice(0, 10);
 
+      // Clear previously appended children
       searchRecommendation.innerText = '';
 
       if (candidates) {
-        searchRecommendation.style.display = 'block';
         candidates.map(candidate => {
           const link = document.createElement('a');
           searchRecommendation.appendChild(link);
           link.href = `/${candidate}`;
           link.innerText = candidate;
-          addSpinner(link, 'click');
+          addShowSpinner(link, 'click'); // Don't forget the spinner
         });
       }
-    });
-
-    // Hide it when focus is out
-    searchForm.addEventListener('blur', (e) => {
-      searchRecommendation.innerText = '';
-      searchRecommendation.style.display = 'none';
     });
   });

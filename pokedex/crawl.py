@@ -83,7 +83,7 @@ def parse_pokemon_en(doc):
             get_evolution_chain(doc.cssselect('.pokedex-pokemon-evolution')[0])
             ]
 
-
+# Implement this when adding KR lang
 def parse_pokemon_kr(doc, name):
     return 'Currently not implemented.'
 

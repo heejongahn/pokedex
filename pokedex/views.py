@@ -7,7 +7,6 @@ from pokedex.models import LocaleType, Pokemon, PokemonLocale, Evolution
 from pokedex.crawl import construct_name_map, crawl_pokemon
 
 def init_view(app):
-    # Construct name map
     name_map = construct_name_map()
 
     @app.route('/')
@@ -62,6 +61,7 @@ def init_view(app):
         locale_name_map = name_map[LocaleType.EN]
         return jsonify(name_map=locale_name_map)
 
+
 def parse_name(name_or_id, locale_name_map):
     try:
         poke_id = int(name_or_id)
@@ -87,7 +87,6 @@ def make_evolution_records(chain_ids_splitted):
             evolution = Evolution(int(prv), int(nxt))
             db.session.add(evolution)
             db.session.commit()
-
 
 def get_evolution_records(poke_id):
     chain_ids_splitted = [[poke_id]]
