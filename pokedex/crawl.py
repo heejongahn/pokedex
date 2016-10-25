@@ -93,9 +93,9 @@ def parse_pokemon_kr(doc, name):
 # Below are helper functions used in crawler
 # ------------------------------------------
 
-# Thanks to Farfetch’d
+# Thanks to Farfetch’d and Nidorans
 def sanitize(name):
-    return name.replace('’', '')
+    return name.replace('’', '').replace('♂', '-male').replace('♀', '-female')
 
 # Deals with the messed up American Unit System
 def resolve_american_units(height_span, weight_span):
