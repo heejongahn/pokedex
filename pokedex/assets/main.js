@@ -1,7 +1,9 @@
 require('./pokedex');
+import fetch from 'whatwg-fetch';
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
+
 
 const addSpinner = (elem, event) => {
   elem.addEventListener(event, () => {
