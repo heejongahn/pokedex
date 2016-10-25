@@ -14,21 +14,32 @@ def init_view(app):
 
     @app.route('/<name_or_id>')
     def pokename(name_or_id):
+        locale_name_map = name_map[LocaleType.EN]
+
         try:
             poke_id = int(name_or_id)
 
             # English name default
-            name = name_map[LocaleType.EN][poke_id-1]
+            name = locale_name_map[poke_id-1]
 
         except:
             name = name_or_id
 
-        if name not in name_map[LocaleType.EN]:
+        if name not in locale_name_map:
             return render_template('no_such_pokemon.html')
 
         info = crawl_pokemon(LocaleType.EN, name)
         (poke_id, image_url, gender, poke_type, height, weight) = info[0]
         (name, description, category) = info[1]
+        chain_ids = info[2]
+
+        chain_ids_splitted = [ids.split(',') for ids in chain_ids]
+        chain_pairs = [
+                [(poke_id, locale_name_map[int(poke_id)-1])
+                    for poke_id in poke_ids]
+                for poke_ids in chain_ids_splitted]
+
+        print(chain_pairs)
 
         p = Pokemon.query.get(poke_id)
         if p is None:
@@ -43,4 +54,5 @@ def init_view(app):
             db.session.add(p_locale)
             db.session.commit()
 
-        return render_template('pokemon.html', p=p, p_locale=p_locale)
+        return render_template('pokemon.html', p=p, p_locale=p_locale,
+                chain_pairs=chain_pairs)

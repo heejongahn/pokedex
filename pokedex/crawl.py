@@ -81,7 +81,8 @@ def parse_pokemon_en(doc, name):
 
     return [
             (poke_id, image_url, gender, poke_type, height, weight),
-            (name, description, category)
+            (name, description, category),
+            get_evolution_chain(doc.cssselect('.pokedex-pokemon-evolution')[0])
             ]
 
 
