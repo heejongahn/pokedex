@@ -17,33 +17,37 @@ def fetch_and_parse(url):
     return doc
 
 def construct_name_map():
-    name_map = {}
     doc = fetch_and_parse(NAME_MAP_URL)
 
     table = doc.cssselect('div.WikiaArticle table.prettytable')[0]
     rows = table.findall('tr')[1:]
 
-    name_array_map = {
-            LocaleType.KR: [],
-            LocaleType.EN: [],
-            LocaleType.JP: []
+    name_map = {
+            LocaleType.EN: []
+
+            # Uncomment below when adding other locales
+
+            # LocaleType.KR: [],
+            # LocaleType.JP: []
             }
 
     for row in rows:
         tds = row.findall('td')
         poke_no = int(tds[0].text.strip())
 
-        # KR name is enclosed in an additional <a> tag
-        kr_name = tds[1].getchildren()[0].text.strip()
-        jp_name = tds[2].text.strip()
         en_name = tds[3].text.strip().lower()
+        name_map[LocaleType.EN].append(en_name)
 
-        name_map[poke_no] = (kr_name, jp_name, en_name)
-        name_array_map[LocaleType.KR].append(kr_name)
-        name_array_map[LocaleType.JP].append(jp_name)
-        name_array_map[LocaleType.EN].append(en_name)
+        # Uncomment below when adding other locales
 
-    return (name_map, name_array_map)
+        # KR name is enclosed in an additional <a> tag
+        # kr_name = tds[1].getchildren()[0].text.strip()
+        # jp_name = tds[2].text.strip()
+
+        # name_map[LocaleType.KR].append(kr_name)
+        # name_map[LocaleType.JP].append(jp_name)
+
+    return name_map
 
 def crawl_pokemon(locale, name):
     doc = fetch_and_parse(BASE_URLS[locale].format(name))
@@ -80,6 +84,9 @@ def parse_pokemon_en(doc, name):
             (name, description, category)
             ]
 
+
+def parse_pokemon_kr(doc, name):
+    return 'Currently not implemented.'
 
 # ------------------------------------------
 # Below are helper functions used in crawler

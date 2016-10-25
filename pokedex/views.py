@@ -6,7 +6,7 @@ from pokedex.crawl import construct_name_map, crawl_pokemon
 
 def init_view(app):
     # Construct name map
-    name_map, name_array_map = construct_name_map()
+    name_map = construct_name_map()
 
     @app.route('/')
     def index():
@@ -18,12 +18,12 @@ def init_view(app):
             poke_id = int(name_or_id)
 
             # English name default
-            name = name_map[poke_id][2]
+            name = name_map[LocaleType.EN][poke_id-1]
 
         except:
             name = name_or_id
 
-        if name not in name_array_map[LocaleType.EN]:
+        if name not in name_map[LocaleType.EN]:
             return render_template('no_such_pokemon.html')
 
         info = crawl_pokemon(LocaleType.EN, name)
