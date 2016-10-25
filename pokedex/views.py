@@ -18,12 +18,10 @@ def init_view(app):
 
         try:
             poke_id = int(name_or_id)
-
-            # English name default
             name = locale_name_map[poke_id-1]
 
         except:
-            name = name_or_id
+            name = name_or_id.lower().capitalize()
 
         if name not in locale_name_map:
             return render_template('no_such_pokemon.html')

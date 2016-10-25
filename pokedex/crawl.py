@@ -35,7 +35,7 @@ def construct_name_map():
         tds = row.findall('td')
         poke_no = int(tds[0].text.strip())
 
-        en_name = tds[3].text.strip().lower()
+        en_name = tds[3].text.strip().lower().capitalize()
         name_map[LocaleType.EN].append(en_name)
 
         # Uncomment below when adding other locales
