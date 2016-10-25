@@ -32,12 +32,28 @@ nav
     padding: 0
     margin: 0
 
+    a
+      color: main-color
+
   form#search-form
     padding: 0 3em
-    margin: 1em 0
+    margin: 1em 0 0 0
 
-  a
-    color: main-color
+    input
+      margin: 0
+
+  p#search-recommendation
+    height: 2em
+    padding: 0 3em
+    margin: 0 0 1em 0
+    overflow: hidden
+    text-overflow: ellipsis
+    width: 100%
+
+    a
+      font-size: 0.875em
+      margin: 0.5em
+
 
 div.pokemon-profile
   width: 100%
@@ -109,7 +125,7 @@ button#back-to-top
 
 @media(max-width: 40.0 rem)
   nav
-    form#search-form
+    form#search-form, p#search-recommendation
       padding: 0em 1.5em
 
   div.pokemon-profile

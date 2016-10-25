@@ -3,6 +3,12 @@ require('./pokedex');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
+const addSpinner = (elem, event) => {
+  elem.addEventListener(event, () => {
+    showSpinner();
+  });
+}
+
 searchForm.addEventListener('submit', (e) => {
   e.preventDefault();
   showSpinner();
@@ -11,9 +17,7 @@ searchForm.addEventListener('submit', (e) => {
 
 const links = document.querySelectorAll('a');
 for (const link of links) {
-  link.addEventListener('click', () => {
-      showSpinner();
-  });
+  addSpinner(link, 'click');
 }
 
 const backToTopBtn = document.getElementById('back-to-top')
@@ -33,3 +37,37 @@ const showSpinner = () => {
     spinner.style.display = 'block';
   }
 }
+
+const searchRecommendation = document.getElementById('search-recommendation');
+fetch('/name_map').
+  then(result => result.json()).
+  then(result => {
+    const names = result.name_map;
+
+    // Update search recommendation
+    searchInput.addEventListener('input', (e) => {
+      const candidates = names.filter(name =>
+          (e.target.value !== '' &&
+            name.toLowerCase().includes(e.target.value.toLowerCase()))
+      ).slice(0, 10);
+
+      searchRecommendation.innerText = '';
+
+      if (candidates) {
+        searchRecommendation.style.display = 'block';
+        candidates.map(candidate => {
+          const link = document.createElement('a');
+          searchRecommendation.appendChild(link);
+          link.href = `/${candidate}`;
+          link.innerText = candidate;
+          addSpinner(link, 'click');
+        });
+      }
+    });
+
+    // Hide it when focus is out
+    searchForm.addEventListener('blur', (e) => {
+      searchRecommendation.innerText = '';
+      searchRecommendation.style.display = 'none';
+    });
+  });
