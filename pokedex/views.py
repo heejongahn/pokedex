@@ -97,13 +97,13 @@ def make_evolution_records(chain_ids_splitted):
             db.session.commit()
 
 def get_evolution_records(poke_id):
-    chain_ids_splitted = [[poke_id]]
+    chain_ids_splitted = [[str('%0*d' % (3, poke_id))]]
 
     # Construct the previous part of the chain
     # Note that this is a one-way road.
     prv_pokemon = Evolution.query.filter_by(nxt=poke_id).first()
     while (prv_pokemon is not None):
-        chain_ids_splitted.insert(0, [prv_pokemon.prv])
+        chain_ids_splitted.insert(0, [str('%0*d' % (3, prv_pokemon.prv))])
         prv_pokemon = Evolution.query.filter_by(nxt=prv_pokemon.prv).first()
 
     # Construct the remaining part of the chain
@@ -111,11 +111,11 @@ def get_evolution_records(poke_id):
     while (len(nxt_pokemons) > 0):
         # Multiple evolution (ex Eevee)
         if (len(nxt_pokemons) > 1):
-            chain_ids_splitted.append([n.nxt for n in nxt_pokemons])
+            chain_ids_splitted.append([str('%0*d' % (3, n.nxt)) for n in nxt_pokemons])
             break # Evolution chain ends when the chain diverges
 
         nxt_pokemon = nxt_pokemons[0]
-        chain_ids_splitted.insert(0, [nxt_pokemon.nxt])
+        chain_ids_splitted.append([str('%0*d' % (3, nxt_pokemon.nxt))])
         nxt_pokemons = Evolution.query.filter_by(prv=nxt_pokemon.nxt).all()
 
     return chain_ids_splitted
