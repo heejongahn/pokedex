@@ -50,3 +50,13 @@ class PokemonLocale(db.Model):
         self.description = d
         self.category = c
         self.basics_id = b_id
+
+
+class Evolution(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    prv = db.Column(db.Integer)
+    nxt = db.Column(db.Integer)
+
+    def __init__(self, prv, nxt):
+        self.prv = prv
+        self.nxt = nxt
