@@ -50,7 +50,7 @@ def construct_name_map():
     return name_map
 
 def crawl_pokemon(locale, name):
-    doc = fetch_and_parse(BASE_URLS[locale].format(name))
+    doc = fetch_and_parse(BASE_URLS[locale].format(sanitize(name)))
 
     if locale == LocaleType.KR:
         return parse_pokemon_kr(doc, name)
@@ -58,7 +58,7 @@ def crawl_pokemon(locale, name):
         return parse_pokemon_en(doc, name)
 
 def parse_pokemon_en(doc, name):
-    poke_id = doc.cssselect('span#pokemonID')[0].text[1:]
+    poke_id = strip_span(doc.cssselect('span#pokemonID')[0])
 
     image = doc.cssselect('div.profile-images')[0].getchildren()[0]
     image_url = 'https://' + image.get('src')[2:]
@@ -92,6 +92,10 @@ def parse_pokemon_kr(doc, name):
 # ------------------------------------------
 # Below are helper functions used in crawler
 # ------------------------------------------
+
+# Thanks to Farfetch’d
+def sanitize(name):
+    return name.replace('’', '')
 
 # Deals with the messed up American Unit System
 def resolve_american_units(height_span, weight_span):
@@ -131,7 +135,7 @@ def get_evolution_chain(evo):
 
     # No evolution info
     if len(pokemons) == 1:
-        chain = [strip_span(pokemons[0].cssselect('span.pokemon-number'))]
+        chain = [strip_span(pokemons[0].cssselect('span.pokemon-number')[0])]
 
     # Two step evolution
     elif len(pokemons) == 2:
