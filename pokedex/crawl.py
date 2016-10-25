@@ -53,13 +53,11 @@ def crawl_pokemon(locale, name):
     doc = fetch_and_parse(BASE_URLS[locale].format(sanitize(name)))
 
     if locale == LocaleType.KR:
-        return parse_pokemon_kr(doc, name)
+        return parse_pokemon_kr(doc)
     else:
-        return parse_pokemon_en(doc, name)
+        return parse_pokemon_en(doc)
 
-def parse_pokemon_en(doc, name):
-    poke_id = strip_span(doc.cssselect('span#pokemonID')[0])
-
+def parse_pokemon_en(doc):
     image = doc.cssselect('div.profile-images')[0].getchildren()[0]
     image_url = 'https://' + image.get('src')[2:]
 
@@ -80,8 +78,8 @@ def parse_pokemon_en(doc, name):
             getchildren()[0].text.strip()
 
     return [
-            (poke_id, image_url, gender, poke_type, height, weight),
-            (name, description, category),
+            (image_url, gender, poke_type, height, weight),
+            (description, category),
             get_evolution_chain(doc.cssselect('.pokedex-pokemon-evolution')[0])
             ]
 

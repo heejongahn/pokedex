@@ -26,9 +26,11 @@ def init_view(app):
         if name not in locale_name_map:
             return render_template('no_such_pokemon.html')
 
+        poke_id = locale_name_map.index(name) + 1
         info = crawl_pokemon(LocaleType.EN, name)
-        (poke_id, image_url, gender, poke_type, height, weight) = info[0]
-        (name, description, category) = info[1]
+
+        (image_url, gender, poke_type, height, weight) = info[0]
+        (description, category) = info[1]
         chain_ids = info[2]
 
         chain_ids_splitted = [ids.split(',') for ids in chain_ids]
