@@ -116,10 +116,10 @@ def figure_gender(gender_span):
         gender = GenderType.UNKNOWN
     elif len(gender_span.getchildren()) == 2:
         gender = GenderType.BOTH_GENDER
-    elif gender_span.findall('i.icon_female_symbol'):
-        gender = GenderType.FEMALE
+    elif gender_span.cssselect('i.icon_female_symbol'):
+        gender = GenderType.ONLY_FEMALE
     else:
-        gender = GenderType.MALE
+        gender = GenderType.ONLY_MALE
 
     return gender
 
