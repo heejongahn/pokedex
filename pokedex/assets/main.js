@@ -1,5 +1,5 @@
 require('./pokedex');
-import fetch from 'whatwg-fetch';
+import 'whatwg-fetch';
 
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
