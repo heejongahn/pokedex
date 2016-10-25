@@ -34,7 +34,10 @@ def init_view(app):
             db.session.commit()
 
             chain_ids_splitted = [ids.split(',') for ids in chain_ids]
-            make_evolution_records(chain_ids_splitted)
+
+            if not (Evolution.query.filter_by(nxt=poke_id).all()
+                    or Evolution.query.filter_by(prv=poke_id).all()):
+                make_evolution_records(chain_ids_splitted)
 
         else:
             chain_ids_splitted = get_evolution_records(poke_id)
@@ -48,6 +51,11 @@ def init_view(app):
 
         p_locale = PokemonLocale.query.get((poke_id, LocaleType.EN))
         if p_locale is None:
+            info = crawl_pokemon(LocaleType.EN, name)
+            (image_url, gender, poke_type, height, weight) = info[0]
+            (description, category) = info[1]
+            chain_ids = info[2]
+
             p_locale = PokemonLocale(poke_id, LocaleType.EN, name, description,
                     category, p.poke_id)
             db.session.add(p_locale)
