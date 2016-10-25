@@ -25,6 +25,9 @@ html
     padding: 0 2rem
 
 nav
+  div.row
+    padding: 0 3em
+
   h1
     display: inline
     font-weight: 500
@@ -36,7 +39,6 @@ nav
       color: main-color
 
   form#search-form
-    padding: 0 3em
     margin: 1em 0 0 0
 
     input
@@ -44,7 +46,6 @@ nav
 
   p#search-recommendation
     height: 2em
-    padding: 0 3em
     margin: 0 0 1em 0
     overflow: hidden
     text-overflow: ellipsis
@@ -125,7 +126,7 @@ button#back-to-top
 
 @media(max-width: 40.0 rem)
   nav
-    form#search-form, p#search-recommendation
+    div.row
       padding: 0em 1.5em
 
   div.pokemon-profile
