@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 const assetPath = './pokedex/assets';
 const absAssetPath = path.resolve(assetPath);
@@ -37,9 +38,10 @@ export default {
       },
       {
         test: /\.styl$/,
-        loader: ExtractTextPlugin.extract('style-loader', ['css-loader', 'stylus-loader'])
+        loader: ExtractTextPlugin.extract('style-loader', ['css!postcss!stylus'])
       },
     ]
   },
-  plugins: plugins
+  plugins: plugins,
+  postcss: () => { [ autoprefixer ] }
 };
