@@ -35,12 +35,15 @@
 <h3>Evolution Information</h3>
 {% for step_pairs in chain_pairs %}
   <div class="evolution generation">
-  {% for (poke_id, name) in step_pairs %}
-    <a href="/{{name}}">
-      {{name}} <span class="evolution poke_id">#{{poke_id}}</span>
-    </a>
-    {% if not loop.last %} ,{%endif %}
-  {% endfor %}
+    <p class="evolution generation-label">
+      <b>Generation {{ loop.index }}</b>
+    </p>
+    {% for (poke_id, name) in step_pairs %}
+      <a href="/{{name}}">{{name}}
+        <span class="evolution poke-id">#{{poke_id}}</span>
+      </a>
+      {% if not loop.last %} ,{%endif %}
+    {% endfor %}
   <div>
 {% endfor %}
 {% endblock %}
