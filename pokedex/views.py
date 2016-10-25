@@ -1,9 +1,9 @@
 import random
 
-from flask import render_template, request, redirect, flash, session, jsonify
+from flask import render_template, request, redirect, jsonify
 
 from pokedex import app, db
-from pokedex.models import LocaleType, GenderType, Pokemon, PokemonLocale, Evolution
+from pokedex.models import LocaleType, Pokemon, PokemonLocale, Evolution
 from pokedex.crawl import construct_name_map, crawl_pokemon
 
 def init_view(app):
