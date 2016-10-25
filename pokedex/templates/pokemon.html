@@ -19,31 +19,37 @@
   </div>
 </div>
 
-<table>
-  <caption>Physical Information</caption>
-  <tr>
-    <th>Gender</th>
-    <th>Height (m)</th>
-    <th>Weight (kg)</th>
-  </tr>
-  <tr>
-    <td>{{p.gender.value}}</td>
-    <td>{{p.height}}</td>
-    <td>{{p.weight}}</td>
-  </tr>
-</table>
-<h3>Evolution Information</h3>
-{% for step_pairs in chain_pairs %}
-  <div class="evolution generation">
-    <p class="evolution generation-label">
-      <b>Generation {{ loop.index }}</b>
-    </p>
-    {% for (poke_id, name) in step_pairs %}
-      <a href="/{{name}}">{{name}}
-        <span class="evolution poke-id">#{{poke_id}}</span>
-      </a>
-      {% if not loop.last %} ,{%endif %}
+<div class="additional-infos">
+  <div class="physical-info">
+    <h3>Physical Information</h3>
+    <table>
+      <tr>
+        <th>Gender</th>
+        <th>Height (m)</th>
+        <th>Weight (kg)</th>
+      </tr>
+      <tr>
+        <td>{{p.gender.value}}</td>
+        <td>{{p.height}}</td>
+        <td>{{p.weight}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="evolution-info">
+    <h3>Evolution Information</h3>
+    {% for step_pairs in chain_pairs %}
+      <div class="evolution generation">
+        <p class="evolution generation-label">
+          <b>Generation {{ loop.index }}</b>
+        </p>
+        {% for (poke_id, name) in step_pairs %}
+          <a href="/{{name}}">{{name}}
+            <span class="evolution poke-id">#{{poke_id}}</span>
+          </a>
+          {% if not loop.last %} ,{%endif %}
+        {% endfor %}
+      </div>
     {% endfor %}
-  <div>
-{% endfor %}
+  </div>
+</div>
 {% endblock %}
