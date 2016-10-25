@@ -2,9 +2,10 @@ import random
 
 from flask import render_template, jsonify
 
-from pokedex import app, db
+from pokedex import db
 from pokedex.models import LocaleType, Pokemon, PokemonLocale, Evolution
 from pokedex.crawl import construct_name_map, crawl_pokemon
+
 
 def init_view(app):
     name_map = construct_name_map()
@@ -35,8 +36,11 @@ def init_view(app):
 
             chain_ids_splitted = [ids.split(',') for ids in chain_ids]
 
-            if not (Evolution.query.filter_by(nxt=poke_id).all()
-                    or Evolution.query.filter_by(prv=poke_id).all()):
+            # Make records, if this evolution is accessed for the first time
+            if not (
+                    Evolution.query.filter_by(nxt=poke_id).all()
+                    or Evolution.query.filter_by(prv=poke_id).all()
+                    ):
                 make_evolution_records(chain_ids_splitted)
 
         else:
