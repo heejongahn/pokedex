@@ -23,95 +23,88 @@ html
     font-family: "Spoqa Han Sans", "Spoqa Han Sans KR", sans-serif !important;
 
 nav
-  div.row
+  & >.row
     padding: 0 3em
 
-  h1
-    display: inline
-    font-weight: 500
-    text-align: center
-    padding: 0
-    margin: 0
-
-    a
-      color: main-color
-
-  form#search-form
-    margin: 1em 0 0 0
-
-    input
+    & > h1
+      display: inline
+      font-weight: 500
+      text-align: center
+      padding: 0
       margin: 0
 
-  p#search-recommendation
-    height: 2em
-    margin: 0 0 1em 0
-    overflow: hidden
-    text-overflow: ellipsis
-    width: 100%
+.logo
+  color: main-color
 
-    a
-      font-size: 0.875em
-      margin: 0.5em
+#search-form
+  margin: 1em 0 0 0
+
+#search-input
+  margin: 0
+
+#search-recommendation
+  height: 2em
+  margin: 0 0 1em 0
+  overflow: hidden
+  text-overflow: ellipsis
+  width: 100%
+
+  a
+    font-size: 0.875em
+    margin: 0.5em
 
 
-div.pokemon-profile
+.pokemon-profile
   width: 100%
   display: flex
   flex-wrap: wrap
   align-items: center
 
-  img
-    width: 25%
-    height: 25%
-    display: inline-block
+.pokemon-profile-img
+  width: 25%
+  height: 25%
+  display: inline-block
 
-  div.pokemon-info
-    width: 70%
-    display: inline-block
-    margin-left: 2em
+.pokemon-info
+  width: 70%
+  display: inline-block
+  margin-left: 2em
 
-    h2.pokemon-name
-      display: inline
+.pokemon-name
+  display: inline
 
-    div.pokemon-types
-      display: inline
-      margin-left: 1em
+.pokemon-types
+  display: inline
+  margin-left: 1em
 
-      button.pokemon-type
-        display: inline
+.pokemon-type
+  display: inline
 
-
-div.additional-infos
+.additional-infos
   display: flex
   flex-wrap: wrap
 
-  div.physical-info
-    width: 50%
-    padding-right: 1em
+.physical-info
+  width: 50%
+  padding-right: 1em
 
-    table
-      *
-        text-align: center
+  & > .pokemon-table-row
+    & > td, & > th
+      text-align: center;
+      width: 100%
 
-      tbody
-        width: 100%
+.evolution-info
+  width: 50%
+  padding-left: 1em
 
-      tr
-        width: 100%
+.generation-label
+  margin: 0.5em 0
 
-  div.evolution-info
-    width: 50%
-    padding-left: 1em
+.poke-id
+  font-weight: lighter
+  font-size: 0.825em
 
-    div.evolution
-      p.generation-label
-        margin: 0.5em 0
-
-      span.poke-id
-        font-weight: lighter
-        font-size: 0.825em
-
-button#back-to-top
+#back-to-top
   position: fixed
   bottom: 1em
   right: 1em
@@ -122,25 +115,25 @@ button#back-to-top
 
 @media(max-width: 40.0 rem)
   nav
-    div.row
+    & > .row
       padding: 0em 1.5em
 
-  div.pokemon-profile
-    img
-      width: 100%
-      display: block
+  /* Pokemon profile */
+  .pokemon-profile-img
+    width: 100%
+    display: block
 
-    div.pokemon-info
-      width: 100%
-      display: block
-      margin-left: 0
+  .pokemon-info
+    width: 100%
+    display: block
+    margin-left: 0
 
-      div.pokemon-types
-        display: block
-        margin-top: 1em
-        margin-left: 0
+  .pokemon-types
+    display: block
+    margin-top: 1em
+    margin-left: 0
 
-  div.additional-infos
-    div.physical-info, div.evolution-info
-      width: 100%
-      padding: 0
+  /* Additional Informations */
+  .physical-info, .evolution-info
+    width: 100%
+    padding: 0
