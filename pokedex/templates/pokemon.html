@@ -3,7 +3,8 @@
 {% block content %}
 <div class="spinner"></div>
 <div class="pokemon-profile">
-  <img alt="{{p_locale.name}}" src="{{p.image_url}}" />
+  <img alt="{{p_locale.name}}" src="{{p.image_url}}"
+  class="pokemon-profile-img"/>
   <div class="pokemon-info">
     <div>
       <h2 class="pokemon-name">{{p_locale.name}} (#{{p.poke_id}})</h2>
@@ -24,12 +25,12 @@
   <div class="physical-info">
     <h3>Physical Information</h3>
     <table>
-      <tr>
+      <tr class="pokemon-table-row">
         <th>Gender</th>
         <th>Height (m)</th>
         <th>Weight (kg)</th>
       </tr>
-      <tr>
+      <tr class="pokemon-table-row">
         <td>{{p.gender.value}}</td>
         <td>{{p.height}}</td>
         <td>{{p.weight}}</td>
