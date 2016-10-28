@@ -18,23 +18,23 @@ main-color = #606c76
   padding: 0 1.5rem
 
 html
-  body
-    padding: 0 2rem
-    font-family: "Spoqa Han Sans", "Spoqa Han Sans KR", sans-serif !important;
 
-nav
-  & >.row
-    padding: 0 3em
+body
+  width: 100%
+  font-family: "Spoqa Han Sans", "Spoqa Han Sans KR", sans-serif !important;
 
-    & > h1
-      display: inline
-      font-weight: 500
-      text-align: center
-      padding: 0
-      margin: 0
+.container
+  width: 60%
 
 .logo
-  color: main-color
+  display: inline
+  font-weight: 500
+  text-align: center
+  padding: 0
+  margin: 0
+
+  & > a
+    color: main-color
 
 #search-form
   margin: 1em 0 0 0
@@ -49,7 +49,7 @@ nav
   text-overflow: ellipsis
   width: 100%
 
-  a
+  & > a
     font-size: 0.875em
     margin: 0.5em
 
@@ -88,10 +88,10 @@ nav
   width: 50%
   padding-right: 1em
 
-  & > .pokemon-table-row
-    & > td, & > th
-      text-align: center;
-      width: 100%
+.pokemon-table-row
+  width: 100%
+  & > td, & > th
+    text-align: center;
 
 .evolution-info
   width: 50%
@@ -114,9 +114,8 @@ nav
   background-color: main-color
 
 @media(max-width: 40.0 rem)
-  nav
-    & > .row
-      padding: 0em 1.5em
+  .container
+    width: 90%
 
   /* Pokemon profile */
   .pokemon-profile-img
