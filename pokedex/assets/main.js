@@ -41,6 +41,13 @@ if (!hasVScroll) {
 // Search recommendation, using fetch
 const searchInput = document.getElementById('search-input');
 const searchRecommendation = document.getElementById('search-recommendation');
+
+searchRecommendation.addEventListener('click', (e) => {
+  if (e.target.nodeName === 'A') {
+    showSpinner();
+  }
+});
+
 fetch('/name_map').
   then(result => result.json()).
   then(result => {
@@ -62,7 +69,6 @@ fetch('/name_map').
           searchRecommendation.appendChild(link);
           link.href = `/${candidate}`;
           link.innerText = candidate;
-          addShowSpinner(link, 'click'); // Don't forget the spinner
         });
       }
     });
